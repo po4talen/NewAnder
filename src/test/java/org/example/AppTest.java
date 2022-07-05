@@ -9,6 +9,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Unit test for simple App.
@@ -31,13 +36,17 @@ public class AppTest {
     private static final By BUTTON_FINISH = By.xpath("//button[@id='finish']");
     private static final By THANKS_TEXT = By.xpath("//h2[contains(text(),'THANK')]");
 
+
     //description = "autorization + checkout" tests
     @Test
     public void test1() {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
+        final Wait<WebDriver> wait = new WebDriverWait(driver, 5, 1000);
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         driver.get(URL);
         driver.manage().window().maximize();
+    
         //enter login
         WebElement login = driver.findElement(LOGIN);
         login.sendKeys("standard_user");
